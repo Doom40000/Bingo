@@ -1,14 +1,24 @@
-const { readFile } = require('fs');
-const {sum, getData} = require('./bingo.js');
-const { string } = require('yargs');
+"use strict";
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1,2)).toBe(3);
+const { readFileSync } = require('fs');
+const { noSpace, calledNumbers } = require('./bingo')
+
+
+test('readFileSync Part1 should return a string of numbers', () => {
+  const data = readFileSync("Part1.txt", "utf-8");
+  expect(data).toBeTruthy();
+  expect(typeof data).toBe("string");
 });
 
-test('readFile Part1 should return a string of numbers', () => {
-  expect(readFile('Part1.txt', (err, data) => {
-    return data.toString();
+test('noSpace to have no empty entries', () => {
+  const spaceCheck = noSpace.includes('');
+  expect(spaceCheck).toBe(false);
+});
 
-  })).toBe(typeof string);
+test('calledNumbers to be an array of numbers', () => {
+  const arrayCheck = (calledNumbers) && Array.isArray(calledNumbers);
+  expect(arrayCheck).toBe(true);
+
+  const arrayNumberCheck = calledNumbers.some(item => isNaN(item))
+  expect(arrayNumberCheck).toBe(false);
 });

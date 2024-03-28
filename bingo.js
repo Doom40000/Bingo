@@ -1,39 +1,19 @@
 "use strict";
-const { readFile } = require("fs").promises;
+const { readFileSync } = require("fs");
 
-async function getData(file) {
-  try {
-    const data = await readFile(file);
-    return data.toString();
-  } catch (err) {
-    console.error(err);
-  }
-}
 
-async function returnData(file) {
-  try {
-    const textData = await getData(file);
-    console.log(textData)
-    return textData;
-  } catch (err) {
-    console.error(err);
-  }
-}
+const data = readFileSync("Part1.txt", "utf-8");
+// console.log(data);
 
-const test = returnData("Part1.txt");
-console.log(test);
 
-// const textData = getData("Part1.txt");
-// console.log(returnData("Part1.txt"));
+let noSpace = data.split('\n');
+noSpace.splice(1,1);
+console.log(noSpace);
 
-// readFile('Part1.txt', (err, data) => {
-//   if (err) console.error(err);
 
-//   console.log(data.toString());
-// });
+const calledNumbers = noSpace[0].split(',').map(n => Number(n));
+console.log(calledNumbers);
 
-function sum(a, b) {
-  return a + b;
-}
 
-module.exports = { readFile, getData, sum };
+
+module.exports = { noSpace, calledNumbers };
